@@ -30,15 +30,14 @@
 
         body {
             background-color: var(--bg-main);
-            /* Soft glow effects in background */
             background-image: 
                 radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .container {
@@ -50,6 +49,13 @@
             border-radius: 40px;
             box-shadow: 0 40px 100px -20px rgba(0,0,0,0.5);
             overflow: hidden;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 20px;
+                min-height: auto;
+            }
         }
 
         .visual-side {
@@ -72,13 +78,28 @@
             background: var(--bg-card);
         }
 
+        @media (max-width: 480px) {
+            .form-side {
+                padding: 30px 20px;
+            }
+        }
+
         .visual-side h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; letter-spacing: -1px; }
         .visual-side p { font-size: 1.1rem; opacity: 0.9; line-height: 1.6; font-weight: 300; }
 
         .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-main); letter-spacing: -0.5px; }
         .header p { color: var(--text-muted); margin-bottom: 32px; font-size: 0.95rem; }
 
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.5rem; }
+            .header p { font-size: 0.85rem; margin-bottom: 24px; }
+        }
+
         .input-box { margin-bottom: 20px; }
+
+        @media (max-width: 480px) {
+            .input-box { margin-bottom: 16px; }
+        }
         .input-box label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-label); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
         
         input {
@@ -90,6 +111,13 @@
             font-size: 1rem;
             color: var(--text-main);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (max-width: 480px) {
+            input {
+                padding: 12px 16px;
+                font-size: 16px;
+            }
         }
 
         input:focus {
@@ -131,6 +159,12 @@
             .visual-side { display: none; }
             .container { max-width: 480px; }
             .form-side { padding: 40px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .btn-signup { padding: 14px; font-size: 0.95rem; }
+            .switch { font-size: 0.85rem; margin-top: 20px; }
         }
     </style>
 </head>
