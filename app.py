@@ -16,8 +16,9 @@ class EducationBot:
 
     def setup_ai(self):
         self.api_keys = [
-            'AIzaSyA0-hhtMn1S-28GWxU_q0YrHgMi3y6Befw',
-            'AIzaSyCxnX42-eXv0ZSR6bVu7XDH_y_J2wkIKOA'
+            'AIzaSyCxnX42-eXv0ZSR6bVu7XDH_y_J2wkIKOA',
+            'AIzaSyBOrzBHsImJXvK0COTmBHmmEV-OkDDG-pU',
+            'AIzaSyA0-hhtMn1S-28GWxU_q0YrHgMi3y6Befw'
         ]
         self.current_api_index = 0
         self.model = None
