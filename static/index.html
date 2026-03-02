@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.5, maximum-scale=3.0">
+    <meta name="description" content="AI-powered career guidance and educational planning system">
+    <meta name="theme-color" content="#2c3e50">
+    <title>EduBot - AI Career Guidance Platform</title>
+    
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="professional-style.css">
+    
+    <style>
+        /* Critical CSS for responsive typography */
+        :root {
+            --base-font-size: 16px;
+            --heading-scale: 1.4;
+        }
+        
+        body {
+            font-family: 'Inter', 'Helvetica Neue', 'Source Sans Pro', system-ui, sans-serif;
+            font-size: var(--base-font-size);
+        }
+        
+        /* Ensure smooth gauge animations */
+        .gauge-fill, .gauge-needle {
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+    
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">AI generating personalized recommendations...</div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
+        </div>
+    </div>
+    
+    <header class="hero">
+        <div class="hero-content">
+            <h1>AI Career Guidance System</h1>
+            <p id="welcomeText">Professional AI-driven career counseling and strategic planning platform</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="profile-form">
+            <div class="form-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <span class="progress-text" id="progressText">Step 1 of 3 - 0%</span>
+                </div>
+                
+                <!-- Step 1: Student Profile -->
+                <div id="step1" class="form-step active">
+                    <h2>Personal Profile</h2>
+                    
+                    <div class="form-group">
+                        <label>Current Education Level:</label>
+                        <select id="educationLevel" required>
+                            <option value="">Select Level</option>
+                            <option value="high-school">High School</option>
+                            <option value="undergraduate">Undergraduate</option>
+                            <option value="graduate">Graduate</option>
+                            <option value="postgraduate">Postgraduate</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subjects Already Studied:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" value="mathematics"> Mathematics</label>
+                            <label><input type="checkbox" value="science"> Science</label>
+                            <label><input type="checkbox" value="history"> History</label>
+                            <label><input type="checkbox" value="literature"> Literature</label>
+                            <label><input type="checkbox" value="geography"> Geography</label>
+                            <label><input type="checkbox" value="technology"> Technology</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Career Interests:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="careerInterest" value="engineering"> Engineering</label>
+                            <label><input type="radio" name="careerInterest" value="medicine"> Medicine</label>
+                            <label><input type="radio" name="careerInterest" value="business"> Business</label>
+                            <label><input type="radio" name="careerInterest" value="technology"> Technology</label>
+                            <label><input type="radio" name="careerInterest" value="arts"> Arts & Design</label>
+                            <label><input type="radio" name="careerInterest" value="science"> Research & Science</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Academic Performance:</label>
+                        <input type="range" id="academicPerformance" min="1" max="10" value="0">
+                        <span id="performanceValue">0/10</span>
+                    </div>
+
+                    <button type="button" id="nextBtn" class="next-btn">Next Step</button>
+                </div>
+
+                <!-- Step 2: Preferences -->
+                <div id="step2" class="form-step">
+                    <h2>Career Preferences</h2>
+                    
+                    <div class="form-group">
+                        <label>Experience Level:</label>
+                        <select id="experienceLevel" required>
+                            <option value="">Select Experience</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Learning Commitment (Required):</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="learningCommitment" value="part-time" required> Part-time (1-2 hours/day)</label>
+                            <label><input type="radio" name="learningCommitment" value="full-time" required> Full-time (4-6 hours/day)</label>
+                            <label><input type="radio" name="learningCommitment" value="intensive" required> Intensive (8+ hours/day)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Career Priority (Required):</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="careerPriority" value="salary" required> High Salary</label>
+                            <label><input type="radio" name="careerPriority" value="passion" required> Follow Passion</label>
+                            <label><input type="radio" name="careerPriority" value="stability" required> Job Security</label>
+                            <label><input type="radio" name="careerPriority" value="growth" required> Career Growth</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Work Style:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="workStyle" value="remote"> Remote Work</label>
+                            <label><input type="radio" name="workStyle" value="office"> Office Work</label>
+                            <label><input type="radio" name="workStyle" value="hybrid"> Hybrid</label>
+                            <label><input type="radio" name="workStyle" value="freelance"> Freelance</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Anything else we should know? (Optional)</label>
+                        <textarea id="userTestimony" placeholder="Tell us about your specific interests, goals, or any other information that might help us provide better career recommendations..." rows="3"></textarea>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" id="prevBtn" class="prev-btn">Previous</button>
+                        <button type="button" id="nextBtn2" class="next-btn">Next Step</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Student Psychology -->
+                <div id="step3" class="form-step">
+                    <h2>Professional Assessment</h2>
+                    
+                    <div class="form-group">
+                        <label>How do you handle stress and pressure?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="stressHandling" value="thrive"> I thrive under pressure</label>
+                            <label><input type="radio" name="stressHandling" value="manage"> I manage stress well</label>
+                            <label><input type="radio" name="stressHandling" value="struggle"> I struggle with high pressure</label>
+                            <label><input type="radio" name="stressHandling" value="avoid"> I prefer low-stress environments</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What motivates you most?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="motivation" value="achievement">Personal achievement</label>
+                            <label><input type="radio" name="motivation" value="helping">Helping others</label>
+                            <label><input type="radio" name="motivation" value="creativity">Creative expression</label>
+                            <label><input type="radio" name="motivation" value="recognition">Recognition and praise</label>
+                            <label><input type="radio" name="motivation" value="learning">Continuous learning</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>How do you prefer to work?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="workPreference" value="team">In teams and groups</label>
+                            <label><input type="radio" name="workPreference" value="independent">Independently</label>
+                            <label><input type="radio" name="workPreference" value="leadership">Leading others</label>
+                            <label><input type="radio" name="workPreference" value="support">Supporting others</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What type of challenges excite you?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="challengeType" value="analytical"> Analytical problems</label>
+                            <label><input type="radio" name="challengeType" value="creative"> Creative challenges</label>
+                            <label><input type="radio" name="challengeType" value="social"> Social interactions</label>
+                            <label><input type="radio" name="challengeType" value="technical"> Technical problems</label>
+                            <label><input type="radio" name="challengeType" value="strategic"> Strategic planning</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>How do you make important decisions?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="decisionMaking" value="logical"> Logical analysis</label>
+                            <label><input type="radio" name="decisionMaking" value="intuitive"> Gut feeling</label>
+                            <label><input type="radio" name="decisionMaking" value="research"> Extensive research</label>
+                            <label><input type="radio" name="decisionMaking" value="consultation"> Consulting others</label>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" id="prevBtn2" class="prev-btn">Previous</button>
+                        <button type="submit" id="generateBtn" class="generate-btn"><i class='bx bx-brain'></i> Generate AI Career Roadmap</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="roadmap-section" id="roadmapSection" style="display: none;">
+            <div class="roadmap-container">
+                <div id="careerCards" class="career-cards"></div>
+                
+                <div id="careerPath" class="career-path" style="display: none;"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="profile.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- Go to Top Button -->
+    <button id="goToTopBtn" class="go-to-top-btn" onclick="scrollToTop()"><i class='bx bx-up-arrow-alt'></i></button>
+    
+    <script>
+        // Enhanced responsive functionality
+        window.addEventListener('scroll', function() {
+            const goToTopBtn = document.getElementById('goToTopBtn');
+            if (window.pageYOffset > 300) {
+                goToTopBtn.classList.add('visible');
+            } else {
+                goToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Initialize gauge animations when content is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe for dynamically added gauge charts
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList') {
+                        const addedNodes = Array.from(mutation.addedNodes);
+                        addedNodes.forEach(node => {
+                            if (node.nodeType === 1) { // Element node
+                                const gauges = node.querySelectorAll ? node.querySelectorAll('.demand-gauge') : [];
+                                gauges.forEach(initializeGauge);
+                                
+                                // Also check if the node itself is a gauge
+                                if (node.classList && node.classList.contains('demand-gauge')) {
+                                    initializeGauge(node);
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+        
+        function initializeGauge(gauge) {
+            const fill = gauge.querySelector('.gauge-fill');
+            const needle = gauge.querySelector('.gauge-needle');
+            
+            if (fill && needle) {
+                // Get percentage from CSS variable or data attribute
+                const percentage = parseFloat(fill.style.getPropertyValue('--demand-percentage')) || 75;
+                
+                // Ensure synchronization
+                fill.style.setProperty('--demand-percentage', percentage);
+                needle.style.setProperty('--demand-percentage', percentage);
+                
+                // Add smooth animation
+                setTimeout(() => {
+                    fill.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                    needle.style.transition = 'transform 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>

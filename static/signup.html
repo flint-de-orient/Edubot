@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBot | Join the future</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+        :root {
+            /* Your Specific Color Palette */
+            --brand: #6366f1;
+            --brand-soft: rgba(99, 102, 241, 0.1);
+            --gradient-start: #6366f1;
+            --gradient-end: #a855f7;
+            --bg-main: #0f172a;
+            --bg-card: #ffffff;
+            --bg-input: #f8fafc;
+            --border-input: #f1f5f9;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-label: #334155;
+            --error-bg: #fff1f2;
+            --error-text: #e11d48;
+            --success-bg: #f0fdf4;
+            --success-text: #16a34a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body {
+            background-color: var(--bg-main);
+            /* Soft glow effects in background */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 940px;
+            min-height: 640px;
+            border-radius: 40px;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .visual-side {
+            flex: 1;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        .form-side {
+            flex: 1.2;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bg-card);
+        }
+
+        .visual-side h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; letter-spacing: -1px; }
+        .visual-side p { font-size: 1.1rem; opacity: 0.9; line-height: 1.6; font-weight: 300; }
+
+        .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; color: var(--text-main); letter-spacing: -0.5px; }
+        .header p { color: var(--text-muted); margin-bottom: 32px; font-size: 0.95rem; }
+
+        .input-box { margin-bottom: 20px; }
+        .input-box label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-label); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border-input);
+            background: var(--bg-input);
+            border-radius: 14px;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--brand);
+            background: white;
+            box-shadow: 0 0 0 4px var(--brand-soft);
+        }
+
+        .btn-signup {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-main); /* Dark Button */
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-signup:hover { 
+            background: var(--brand);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(99, 102, 241, 0.5);
+        }
+
+        .msg { padding: 14px; border-radius: 12px; margin-bottom: 24px; font-size: 0.9rem; display: none; text-align: center; font-weight: 600; }
+        .error { background: var(--error-bg); color: var(--error-text); }
+        .success { background: var(--success-bg); color: var(--success-text); }
+
+        .switch { margin-top: 24px; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
+        .switch a { color: var(--brand); font-weight: 700; text-decoration: none; transition: 0.2s; }
+        .switch a:hover { text-decoration: underline; }
+
+        @media (max-width: 850px) {
+            .visual-side { display: none; }
+            .container { max-width: 480px; }
+            .form-side { padding: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="visual-side">
+            <h2>The smarter way to learn.</h2>
+            <p>Join over 10,000+ students globally and start your personalized AI learning journey today.</p>
+        </div>
+
+        <div class="form-side">
+            <div class="header">
+                <h1>Create Account</h1>
+                <p>Join the future of education in seconds.</p>
+            </div>
+
+            <div id="resMsg" class="msg"></div>
+
+            <form id="signupForm">
+                <div class="input-box">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Pick a unique username" required>
+                </div>
+                <div class="input-box">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <div class="input-box">
+                    <label>Verify Password</label>
+                    <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-signup">Get Started</button>
+            </form>
+
+            <div class="switch">
+                Already a member? <a href="login.html">Log in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resMsg = document.getElementById('resMsg');
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            if (password !== confirm) {
+                resMsg.className = "msg error";
+                resMsg.textContent = "Passwords do not match.";
+                resMsg.style.display = "block";
+                return;
+            }
+
+            try {
+                const res = await fetch('/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    // Auto-login after successful signup
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('username', username);
+                    
+                    resMsg.className = "msg success";
+                    resMsg.textContent = "Account created successfully!";
+                    resMsg.style.display = "block";
+                    setTimeout(() => window.location.href = 'index.html', 2000);
+                } else {
+                    resMsg.className = "msg error";
+                    resMsg.textContent = data.message || "Registration failed.";
+                    resMsg.style.display = "block";
+                }
+            } catch (err) {
+                resMsg.className = "msg error";
+                resMsg.textContent = "Network error. Please try again.";
+                resMsg.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
